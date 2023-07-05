@@ -1,0 +1,107 @@
+<%- include('../partials/header') %>
+
+    <div class="container mt-5">
+        <div class="row">
+
+            <div class="row mb-2">
+                <div class="col-md-5">
+                    <a href="/" id="btnRegresar" class="btn btn-sm btn-primary">Regresar</a>
+                    <a href="/" class="btn btn-sm btn-info text-light">Inicio</a>
+                </div>
+            </div>
+
+            <div class="mx-auto col-sm-9 col-md-6 col-lg-5 col-xl-4">
+                <form id="formNuevaReserva" class="rounded border p-3" method="POST">
+                    <h3 class="mb-3 text-center bg-primary text-light rounded p-2">Nueva Reserva</h3>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" id="nombre" name="nombre">
+                        <label class="form-label">Nombre</label>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" id="apellido" name="apellido">
+                        <label class="form-label">Apellido</label>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" class="form-control" id="email" name="email">
+                        <label class="form-label">Correo Electronico</label>
+                    </div>
+                    <div class="mb-3">
+                        <input type="number" class="form-control" id="telefono" name="telefono">
+                        <label class="form-label">Telefono</label>
+                    </div>
+                    <div class="mb-3">
+                        <input type="date" class="form-control" id="fecha_salida" name="fecha_salida">
+                        <label class="form-label">Fecha Salida</label>
+                    </div>
+                    <div class="mb-3">
+                        <input type="date" class="form-control" id="fecha_llegada" name="fecha_llegada">
+                        <label class="form-label">Fecha llegada</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+const formCrearReserva = document.querySelector("#formNuevaReserva")
+
+formCrearReserva.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const nombre = document.querySelector('#nombre').value;
+    const apellido = document.querySelector('#apellido').value;
+    const fecha_salida = document.querySelector('#fecha_salida').value;
+    const fecha_llegada = document.querySelector('#fecha_llegada').value;
+    const telefono = document.querySelector('#telefono').value;
+    const email = document.querySelector('#email').value;
+
+    const reserva = {
+        nombre,
+        apellido,
+        fecha_salida,
+        fecha_llegada,
+        telefono,
+        email
+    }
+
+
+    const response = await fetch('http://localhost:4000/api', {
+        method: 'POST',
+        body: JSON.stringify(reserva),
+        headers: {
+            'Content-Type': 'application/json' // Cuando se envían datos JSON al servidor
+        }
+    })
+
+    const data = await response.json();
+
+   
+            try {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Reserva creada',
+                    text: 'La reserva se ha creado correctamente'
+                })
+
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 2000);
+            } catch (error) {
+                console.log(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error.message
+                })
+            }
+
+        });
+
+            
+    </script>
+
+    <%- include('../partials/footer') %>
