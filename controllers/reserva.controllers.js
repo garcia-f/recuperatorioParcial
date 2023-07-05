@@ -1,5 +1,5 @@
 const ctrlReservas = {};
-const Reserva = require('../models/Reserva')
+const Reserva = require('../models/Reserva');
 
 // ==========================================
 //         Rutas para CRUD de reservas
@@ -51,17 +51,16 @@ ctrlReservas.obtenerReserva = async (req, res) => {
 
 // Crear una reserva
 ctrlReservas.crearReserva = async (req, res) => {
-    const { nombre, apellido, email, fecha_salida, fecha_llegada, telefono, codigo } = req.body;
+    const { nombre, apellido, email, fecha_salida, fecha_llegada, telefono } = req.body;
 
     try {
         const reserva = await Reserva.create({
             nombre,
             apellido,
             email,
-            telefono,
             fecha_salida,
             fecha_llegada,
-            codigo
+            telefono
         });
 
         if (!reserva) {
@@ -81,17 +80,16 @@ ctrlReservas.crearReserva = async (req, res) => {
 // Actualizar una reserva
 ctrlReservas.actualizarReserva = async (req, res) => {
     const { id } = req.params;
-    const { nombre, apellido, email, fecha_salida, fecha_llegada, telefono, codigo } = req.body;
+    const { nombre, apellido, email, fecha_salida, fecha_llegada, telefono } = req.body;
     
     try {
         const reservaActualizada = await Reserva.update({
             nombre,
             apellido,
             email,
-            telefono,
             fecha_salida,
             fecha_llegada,
-            codigo
+            telefono
         }, {
             where: {
                 id,

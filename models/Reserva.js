@@ -32,10 +32,6 @@ const reserva = sequelize.define('reserva', {
         type: DataTypes.DATE,
         allowNull: false,
     },
-    codigo: {
-        type: DataTypes.STRING,
-        defaultValue: new Date().getTime()
-    },
     estado: {
         type: DataTypes.BOOLEAN,
         defaultValue: true

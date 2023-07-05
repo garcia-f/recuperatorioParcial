@@ -26,9 +26,10 @@ router.get('/reserva/crear', (req, res) => {
 })
 
 // Formulario para actualizar una reserva
-router.get('/reserva/editar_reserva', (req, res) => {
+router.get('/reserva/editar/:id', (req, res) => {
+
     const reservaId = req.params.id;
-    res.render('reserva/editar_reserva', { id: reservaId })
+    res.render('reserva/editar_reserva', { id: reservaId });
 });
 
 // ==========================================
@@ -36,10 +37,10 @@ router.get('/reserva/editar_reserva', (req, res) => {
 // ==========================================
 
 // Obtener todas las reservas
-router.get('/api/', obtenerReservas);
+router.get('/api', obtenerReservas);
  
 // Crear una reserva
-router.post('/api/', crearReserva);
+router.post('/api', crearReserva);
 
 router.get('/api/:id', obtenerReserva);
  
